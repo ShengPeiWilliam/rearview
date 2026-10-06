@@ -47,6 +47,11 @@ export const LOOKUP_MAX_KM = 150;
 /** One lookup run stops after this many stores, so a mistake cannot run up a bill. */
 export const LOOKUP_RUN_MAX = 500;
 
+/** A likely range comes from this many redraws of your trips... */
+export const RESAMPLES = 10000;
+/** ...and is the middle this share of the results. */
+export const RANGE_LEVEL = 0.95;
+
 /** A row past this many hours from pickup to drop-off is set aside, counted. */
 export const MAX_TRIP_HOURS = 6;
 /** A Stride day past this many miles is set aside, counted. */
@@ -74,6 +79,7 @@ export const RULES = [
   { rule: 'Two doors on one trip', value: `Learned from your file, somewhere from ${DOOR_GAP_MIN} to ${DOOR_GAP_MAX} minutes between drop-offs; ${SAME_SPOT_MIN} minute when it cannot tell`, term: 'trip' },
   { drawn: true, rule: 'Store mix compared', value: `At least ${MIX_MIN_PER_HALF} typed orders in each half`, term: 'mix' },
   { drawn: true, rule: 'Store mix shift in bold', value: `${MIX_STANDARD_ERRORS} standard errors or more`, term: 'mix' },
+  { rule: 'Likely range beside a difference', value: `The middle ${Math.round(RANGE_LEVEL * 100)}% of ${RESAMPLES.toLocaleString('en-US')} redraws of your trips, each trip drawn whole`, term: 'range' },
   { rule: 'A Stride day filled in', value: 'Its orders times your median miles per order', term: 'miles' },
   { drawn: true, rule: 'A Stride day that looks short', value: `Under ${SHORT_DAY_SHARE} times your median miles per order, on a day with ${SHORT_DAY_MIN_ORDERS} or more orders`, term: 'miles' },
   { rule: 'Tightest day and longest haul', value: `Days with ${BUSY_DAY_ORDERS} or more orders, Stride fully recorded` },
