@@ -19,15 +19,13 @@ export const LUNCH = [11, 14];
 export const DINNER = [17, 20];
 /** A time of day is coloured once it is this many minutes off the overall median. */
 export const TIME_OF_DAY_MARGIN_MIN = 3;
+/** A weekday's wait between trips is coloured once it is this many minutes off the overall median. */
+export const WAIT_MARGIN_MIN = 2;
 /** A category with fewer orders than this is drawn faded. */
 export const THIN_ORDERS = 10;
 /** A recent order is marked slow past this share of your own orders. */
 export const SLOW_QUANTILE = 0.75;
 
-/** Store mix compares two halves only when each has at least this many typed orders. */
-export const MIX_MIN_PER_HALF = 30;
-/** A shift in store mix is bold past this many standard errors. */
-export const MIX_STANDARD_ERRORS = 2;
 
 /** A Stride day looks short under this share of the typical miles per order... */
 export const SHORT_DAY_SHARE = 0.4;
@@ -37,6 +35,8 @@ export const SHORT_DAY_MIN_ORDERS = 3;
 export const BUSY_DAY_ORDERS = 8;
 /** The miles-per-order chart marks a day at this many times the typical day or more. */
 export const HEAVY_DAY_TIMES = 1.5;
+/** ...and only a day with at least this many orders: one long order is not a pattern. */
+export const HEAVY_DAY_MIN_ORDERS = 5;
 /** The miles-per-order chart's axis stops at this many times the typical day. */
 export const DAY_CHART_CAP_TIMES = 3;
 
@@ -51,6 +51,8 @@ export const LOOKUP_RUN_MAX = 500;
 export const RESAMPLES = 10000;
 /** ...and is the middle this share of the results. */
 export const RANGE_LEVEL = 0.95;
+/** Fewer trips (or days) than this and no range is drawn at all. */
+export const RANGE_MIN_UNITS = 5;
 
 /** A row past this many hours from pickup to drop-off is set aside, counted. */
 export const MAX_TRIP_HOURS = 6;
@@ -73,17 +75,16 @@ export const RULES = [
   { rule: 'Scheduled order, left out of order time', value: `Over ${SCHEDULED_MIN} minutes from order to pickup`, term: 'ordertime' },
   { rule: 'Lunch', value: `Pickups from ${hh(LUNCH[0])} to ${last(LUNCH[1])}` },
   { rule: 'Dinner', value: `Pickups from ${hh(DINNER[0])} to ${last(DINNER[1])}` },
-  { drawn: true, rule: 'Time of day coloured', value: `${TIME_OF_DAY_MARGIN_MIN} minutes or more off your median order time` },
+  { drawn: true, rule: 'Time of day coloured', value: `${TIME_OF_DAY_MARGIN_MIN} minutes or more off your median order time, with its likely range clear of that median` },
+  { drawn: true, rule: 'Weekday wait coloured', value: `${WAIT_MARGIN_MIN} minutes or more off your median wait, with its likely range clear of that median` },
   { drawn: true, rule: 'Faded category', value: `Fewer than ${THIN_ORDERS} orders` },
   { drawn: true, rule: 'Slow recent order', value: `Slower than ${Math.round(SLOW_QUANTILE * 4)} in 4 of your own orders, pickup to drop-off` },
   { rule: 'Two doors on one trip', value: `Learned from your file, somewhere from ${DOOR_GAP_MIN} to ${DOOR_GAP_MAX} minutes between drop-offs; ${SAME_SPOT_MIN} minute when it cannot tell`, term: 'trip' },
-  { drawn: true, rule: 'Store mix compared', value: `At least ${MIX_MIN_PER_HALF} typed orders in each half`, term: 'mix' },
-  { drawn: true, rule: 'Store mix shift in bold', value: `${MIX_STANDARD_ERRORS} standard errors or more`, term: 'mix' },
-  { rule: 'Likely range beside a difference', value: `The middle ${Math.round(RANGE_LEVEL * 100)}% of ${RESAMPLES.toLocaleString('en-US')} redraws of your trips, each trip drawn whole`, term: 'range' },
+  { rule: 'Likely range', value: `The middle ${Math.round(RANGE_LEVEL * 100)}% of ${RESAMPLES.toLocaleString('en-US')} redraws of your trips, each trip drawn whole. A weekday redraws its days. Needs ${RANGE_MIN_UNITS} or more`, term: 'range' },
   { rule: 'A Stride day filled in', value: 'Its orders times your median miles per order', term: 'miles' },
   { drawn: true, rule: 'A Stride day that looks short', value: `Under ${SHORT_DAY_SHARE} times your median miles per order, on a day with ${SHORT_DAY_MIN_ORDERS} or more orders`, term: 'miles' },
   { rule: 'Tightest day and longest haul', value: `Days with ${BUSY_DAY_ORDERS} or more orders, Stride fully recorded` },
-  { drawn: true, rule: 'Heavy day on the miles chart', value: `${HEAVY_DAY_TIMES} times your median miles per order or more` },
+  { drawn: true, rule: 'Heavy day on the miles chart', value: `${HEAVY_DAY_TIMES} times your median miles per order or more, on a day with ${HEAVY_DAY_MIN_ORDERS} or more orders` },
   { drawn: true, rule: 'Miles chart axis', value: `Stops at ${DAY_CHART_CAP_TIMES} times your median; taller bars are cut and marked` },
   { rule: 'Weeks in a month, for Goal', value: `${WEEKS_A_MONTH.toFixed(3)} (365 ÷ 12 ÷ 7)` },
   { drawn: true, rule: 'Store lookup trusted', value: `Within ${LOOKUP_MAX_KM} km of your other stores` },
