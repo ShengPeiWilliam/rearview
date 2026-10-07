@@ -31,8 +31,7 @@ Rearview adds:
 
 **Stores**, where you pick up
 - Which stores you keep going back to.
-- Which towns your stores are in, and whether the kind of store you pick up from is changing.
-- An optional map, using your own Google Maps key. Store names and your town are sent to Google to place them.
+- Where they are and what kinds they are, on an optional map using your own Google Maps key. Store names and your town are sent to Google to place them.
 
 Gas and driving need a Stride export, and pay figures need your monthly total.
 
