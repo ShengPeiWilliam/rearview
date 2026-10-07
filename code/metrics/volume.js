@@ -26,9 +26,13 @@ export const storeLoyalty = ({ orders }, all = orders) => {
   const first = new Map();
   for (const o of [...all].sort((a, b) => a.pickup - b.pickup)) if (!first.has(o.store)) first.set(o.store, o.id);
   const repeats = orders.filter((o) => first.get(o.store) !== o.id).length;
+  // Stores in view whose first pickup of all lies outside it: known before these orders began.
+  const inView = new Set(orders.map((o) => o.id));
+  const seenBefore = [...s.keys()].filter((store) => !inView.has(first.get(store))).length;
   return {
     distinct: s.size,
     once,
+    seenBefore,
     repeatShare: pct(repeats, orders.length),
     n: orders.length,
   };
