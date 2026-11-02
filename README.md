@@ -37,7 +37,7 @@ Gas and driving need a Stride export, and pay figures need your monthly total.
 
 ## More
 
-- **[Rearview Notes](https://github.com/shengpeiwilliam/rearview-notes)** — the questions behind the numbers, each one a hunch tested against my own data.
+- **[Rearview Notes](https://shengpeiwilliam.github.io/rearview-notes/)** — the questions behind the numbers, each one a hunch tested against my own data.
 - **[Design notes](DESIGN.md)** — why it's built this way, and what I chose to leave out.
 
 This repository holds the metric definitions. The interface is not included.
