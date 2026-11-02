@@ -8,7 +8,7 @@ A dashboard for delivery drivers. Three views of your deliveries, built from the
 
 DoorDash built [a great dashboard for restaurants](https://about.doordash.com/en-us/news/doordash-introduces-brand-center). It shows how much a marketplace gains when one side can see its own numbers. Drivers are the third side.
 
-The pay screen shows what you earned. It doesn't show what an hour paid after gas, how long your customers waited, or which stores you keep going back to. So I started delivering to see the marketplace from the inside, and built the dashboard I wished I had. What my own file showed is in [this post](https://www.linkedin.com/feed/update/urn:li:activity:7511199326451269632/).
+The pay screen shows what you earned. It doesn't show what an hour paid after gas, how long your customers waited, or which stores you keep going back to. So I started delivering to see the marketplace from the inside, and built the dashboard I wished I had.
 
 Rearview adds:
 
@@ -35,10 +35,9 @@ Rearview adds:
 
 Gas and driving need a Stride export, and pay figures need your monthly total.
 
-Why it's built this way, and what I chose to leave out: [design notes](DESIGN.md).
+## More
+
+- **[Rearview Notes](https://github.com/shengpeiwilliam/rearview-notes)** — the questions behind the numbers, each one a hunch tested against my own data.
+- **[Design notes](DESIGN.md)** — why it's built this way, and what I chose to leave out.
 
 This repository holds the metric definitions. The interface is not included.
-
----
-
-Created by [William Chen](https://www.linkedin.com/in/shengpeichen). Not affiliated with or endorsed by DoorDash or Stride.
